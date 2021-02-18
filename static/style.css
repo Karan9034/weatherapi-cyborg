@@ -1,0 +1,96 @@
+body{
+	background-color: #000;
+}
+
+.header h2{
+	text-align: center;
+	margin-top: 5vw;
+	font-size: 40px;
+	margin-bottom: 0;
+	color: #fff;
+}
+a:hover{
+	text-decoration: none;
+}
+
+form{
+	margin-top: 5vw;
+}
+form input{
+	border-width: 0;
+	border-radius: 15px;
+	font-size: 20px;
+}
+form input[type='text']{
+	width: 80%;
+	padding: 1vw 3vw;
+	margin-right: 3vw;
+}
+form input:focus, form button:focus{
+	outline: none;
+}
+form input[type='submit']{
+	width: 10%;
+	background-color: #008bf5;
+	color: #fff;
+	padding: 0.7vw 0;
+}
+
+#results{
+	margin-top: 2vw;
+	color: #fff;
+}
+#category{
+	text-align: center;
+}
+#error{
+	text-align: center;
+}
+#icon, #temp, #weather{
+	display: inline;
+}
+
+@media all and (max-width: 786px) {
+	.header h2{
+		margin-top: 20vw;
+		font-size: 50px;
+	}
+	form{
+		margin-top: 10vw;
+	}
+	form input[type='submit']{
+		width: 15%;
+		padding: 1vw 1vw;
+	}
+	#results .col-xs-3{
+		margin-top: 3vw;
+	}
+}
+
+@media all and (max-width: 450px) {
+	.header h2{
+		margin: 20vw 5vw 0 5vw;
+		font-size: 45px;
+	}
+	form{
+		margin-top: 20vw;
+		font-size: 18px;
+	}
+	form input[type='text']{
+		margin-left: 5vw;
+		width: 60%;
+		padding: 1vw 4vw;
+	}
+	form input[type='submit']{
+		width: 25%;
+	}
+	#results{
+		margin: 5vw 10% 0 10%;
+	}
+	#results h2{
+		font-size: 25px;
+	}
+	#results .col-xs-3{
+		margin-top: 5vw;
+	}
+}

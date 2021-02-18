@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Live Weather App</title>
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+<body>
+	<div class="header">
+		<a href=""><h2>Live Weather App</h2></a>
+	</div>
+	<div class="container">
+		<form id="search">
+			<input placeholder="Location" id="location" type="text"></input>
+			<input type="submit" value="Search">
+		</form>
+	</div>
+
+	<div id="results" class="container">
+		<div id="error">
+		</div>
+		<div id="category"></div>
+		<div class="row">
+			<div class="col-xs-9">
+				<h2 id='city'></h2>
+				<h2 id='temp'></h2>
+			</div>
+			<div class="col-xs-3">
+				<h2 id='weather'></h2>
+				<img id='icon' src="">
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(() => {
+			$('#search').submit((e) => {
+				e.preventDefault();
+				loc = $('#location').val();
+				$.ajax({
+					url: `http://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=158fb330dc167dcb4269701a4e1b58a3`,
+					type: 'GET',
+					success: (res) => {
+						console.log(res);
+						weather = res.weather[0].main;
+						city = res.name;
+						temp = (res.main.temp - 273.15).toFixed(2);
+						temp_min = (res.main.temp_min - 273.15).toFixed(2);
+						temp_max = (res.main.temp_max - 273.15).toFixed(2);
+						icon = res.weather[0].icon;
+						icon_url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+						$('#error').html('');
+						$('#city').text(city);
+						$('#temp').text(`${temp}°C (Min: ${temp_min}°C | Max: ${temp_max}°C)`);
+						$('#weather').text(weather);
+						$('#icon').attr('src',icon_url);
+						if(temp < 10){
+							$('body').css({
+								backgroundColor: '#074461'
+							});
+							category = `<h2>Category: Cold</h2>`;
+						}
+						else if(temp>35){
+							$('body').css({
+								backgroundColor: '#f57600'
+							});
+							category = `<h2>Category: Hot</h2>`;
+						}
+						else{
+							$('body').css({
+								backgroundColor: '#00ff22'
+							});
+							category = `<h2>Category: Moderate</h2>`;
+						}
+						$("#category").html(category);
+					},
+					error: (err) =>{
+						console.log(err);
+						$('body').css({
+							backgroundColor: '#000'
+						});
+						$('#city').text('');
+						$('#temp').text('');
+						$('#error').html('');
+						$('#weather').text('');
+						$("#category").text('');
+						$('#icon').attr('src', '');
+						if(err.status==404){
+							$('#error').html("<h2>Not Found - City does not exist</h1>")
+						}
+						else if(err.status == 400){
+							$('#error').html("<h2>Bad Request - Enter valid data</h2>")
+						}
+						else {
+							$('#error').html("<h2>Server Error</h2>")
+						}
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
