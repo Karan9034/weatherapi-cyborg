@@ -41,7 +41,7 @@
 				e.preventDefault();
 				loc = $('#location').val();
 				$.ajax({
-					url: `http://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=158fb330dc167dcb4269701a4e1b58a3`,
+					url: `https://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=158fb330dc167dcb4269701a4e1b58a3`,
 					type: 'GET',
 					success: (res) => {
 						console.log(res);
@@ -51,7 +51,7 @@
 						temp_min = (res.main.temp_min - 273.15).toFixed(2);
 						temp_max = (res.main.temp_max - 273.15).toFixed(2);
 						icon = res.weather[0].icon;
-						icon_url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+						icon_url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
 						$('#error').html('');
 						$('#city').text(city);
 						$('#temp').text(`${temp}°C (Min: ${temp_min}°C | Max: ${temp_max}°C)`);
