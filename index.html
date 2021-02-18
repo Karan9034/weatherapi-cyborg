@@ -37,6 +37,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(() => {
+			$('#location').focus();
 			$('#search').submit((e) => {
 				e.preventDefault();
 				loc = $('#location').val();
@@ -44,7 +45,6 @@
 					url: `https://api.openweathermap.org/data/2.5/weather?q=${loc}&appid=158fb330dc167dcb4269701a4e1b58a3`,
 					type: 'GET',
 					success: (res) => {
-						console.log(res);
 						weather = res.weather[0].main;
 						city = res.name;
 						temp = (res.main.temp - 273.15).toFixed(2);
@@ -78,7 +78,6 @@
 						$("#category").html(category);
 					},
 					error: (err) =>{
-						console.log(err);
 						$('body').css({
 							backgroundColor: '#000'
 						});
